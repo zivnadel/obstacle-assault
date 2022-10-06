@@ -23,21 +23,22 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere)
-	int32 MyInt = 99;
+private:
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	FVector PlatformVelocity = FVector(0, 0, 0);
 
-	UPROPERTY(EditAnywhere)
-	float MyFloat = 5.99;
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float MaxMoveDistance = 0;
 
-	UPROPERTY(EditAnywhere)
-	int32 InputA = 0;
+	UPROPERTY(EditAnywhere, Category = "Rotation")
+	FRotator RotationVelocity = FRotator(0, 0, 0);
 
-	UPROPERTY(EditAnywhere)
-	int32 InputB = 0;
+	FVector StartLocation;
 
-	UPROPERTY(EditAnywhere)
-	int32 APlusB = 0;
+	void MovePlatform(float DeltaTime);
+	void RotatePlatform(float DeltaTime);
 
-	UPROPERTY(EditAnywhere)
-	bool MyBool = true;
+	bool ShouldPlatformReturn() const;
+
+	float GetDistanceTraveled() const;
 };

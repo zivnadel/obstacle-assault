@@ -14,13 +14,47 @@ void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MyInt = 9;
-
-	APlusB = InputA + InputB;
+	StartLocation = GetActorLocation();
 }
 
 // Called every frame
 void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	MovePlatform(DeltaTime);
+
+	RotatePlatform(DeltaTime);
+}
+
+void AMovingPlatform::MovePlatform(float DeltaTime)
+{
+	if (ShouldPlatformReturn())
+	{
+		FVector MoveDirection = PlatformVelocity.GetSafeNormal();
+		StartLocation += MoveDirection * MaxMoveDistance;
+		SetActorLocation(StartLocation);
+		PlatformVelocity *= -1;
+	}
+	else
+	{
+		FVector CurrentLocation = GetActorLocation();
+		CurrentLocation += PlatformVelocity * DeltaTime;
+		SetActorLocation(CurrentLocation);
+	}
+}
+
+void AMovingPlatform::RotatePlatform(float DeltaTime)
+{
+	AddActorLocalRotation(RotationVelocity * DeltaTime);
+}
+
+float AMovingPlatform::GetDistanceTraveled() const
+{
+	return FVector::Dist(StartLocation, GetActorLocation());
+}
+
+bool AMovingPlatform::ShouldPlatformReturn() const
+{
+	return GetDistanceTraveled() > MaxMoveDistance;
 }
