@@ -95,3 +95,6 @@ LinuxServer/
 
 # GameLiftServerSDK library files
 !Plugins/GameLiftServerSDK/ThirdParty/GameLiftServerSDK/**
+
+# Other
+*.code-workspace
