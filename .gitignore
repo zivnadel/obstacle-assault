@@ -1,9 +1,11 @@
-# Visual Studio
+# Visual Studio 2015
 .vs/
-.vscode/
 
 # Visual Studio 2015 database file
 *.VC.db
+
+# Visual Studio Code
+.vscode/
 
 # Compiled Object files
 *.slo
